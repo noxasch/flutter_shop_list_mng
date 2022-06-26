@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "918439754657",
+    "project_id": "shopping-list-dev-eadf3",
+    "storage_bucket": "shopping-list-dev-eadf3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:918439754657:android:7d2e7ff72c9358159469e0",
+        "android_client_info": {
+          "package_name": "tech.noxasch.todo_app.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "918439754657-5ea5ghhvtfsd847elvgbpjrq3bch82hg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3-zQ2j5gHcxL3uG7mJeGSBleCWpL-n7g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "918439754657-5ea5ghhvtfsd847elvgbpjrq3bch82hg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "918439754657-777oh6ri7obrj22b0jkg19vm37o56tl0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "tech.noxasch.TodoApp.dev"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

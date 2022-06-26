@@ -19,6 +19,8 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   intl: ^0.17.0
+  firebase_core: ^1.18.0
+  firebase_crashlytics: ^2.8.2
 
 dev_dependencies:
   flutter_test:
