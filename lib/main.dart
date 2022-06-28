@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:marcusng_todo_app/app.dart';
 import 'firebase_options.dart';
 
@@ -17,7 +18,7 @@ void main() async {
 
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
 
-    runApp(const App());
+    runApp(const ProviderScope(child: App()));
   }, (error, stack) =>
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true));
 }
