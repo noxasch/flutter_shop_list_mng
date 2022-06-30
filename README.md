@@ -1,6 +1,8 @@
 # marcusng_todo_app
 
-A new Flutter project.
+This project build with i18n and flavor support.
+
+However firebase support is only generated for development flavor only.
 
 ## Getting Started
 
