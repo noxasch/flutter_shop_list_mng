@@ -1,18 +1,36 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:marcusng_todo_app/common.dart';
+import 'package:marcusng_todo_app/controllers/controllers.dart';
+import 'package:marcusng_todo_app/repositories/custom_exception.dart';
+import 'package:marcusng_todo_app/widgets/widgets.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(authControllerProvider);
+
+    ref.listen<CustomException?>(itemListExceptionProvider,
+        (CustomException? prevException, CustomException? currentException) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(currentException!.message!)));
+    });
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Welcome to Flutter'),
-      ),
-      body: Center(
-        child: Text(AppLocalizations.of(context)!.helloWorld),
-      ),
-    );
+        appBar: AppBar(
+          title: const Text('Welcome to Flutter'),
+          leading: user != null
+              ? IconButton(
+                  icon: const Icon(Icons.logout),
+                  onPressed: () =>
+                      ref.read(authControllerProvider.notifier).signOut(),
+                )
+              : null,
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => AddItemDialog.show(context, Item.empty()),
+          child: const Icon(Icons.add),
+        ),
+        body: const ItemList());
   }
 }
