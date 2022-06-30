@@ -9,6 +9,8 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(authControllerProvider);
+    final itemListFilter = ref.watch(itemListFilterProvider);
+    final isObtained = itemListFilter == ItemListFilter.obtained;
 
     ref.listen<CustomException?>(itemListExceptionProvider,
         (CustomException? prevException, CustomException? currentException) {
@@ -26,6 +28,16 @@ class HomeScreen extends ConsumerWidget {
                       ref.read(authControllerProvider.notifier).signOut(),
                 )
               : null,
+          actions: [
+            IconButton(
+              icon: Icon(
+                  isObtained ? Icons.check_circle : Icons.check_circle_outline),
+              onPressed: () {
+                ref.read(itemListFilterProvider.notifier).state =
+                    isObtained ? ItemListFilter.all : ItemListFilter.obtained;
+              },
+            )
+          ],
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () => AddItemDialog.show(context, Item.empty()),

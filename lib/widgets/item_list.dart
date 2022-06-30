@@ -4,18 +4,6 @@ import 'package:marcusng_todo_app/repositories/custom_exception.dart';
 import 'package:marcusng_todo_app/widgets/item_list_error.dart';
 import 'package:marcusng_todo_app/widgets/item_tile.dart';
 
-// final logicProvider = StateNotifierProvider.family<Logic, int>((ref, id) {
-//   return Logic(id);
-// });
-
-// final itemProviderFamily = Provider.autoDispose.family<Item, String>((ref, id) {
-//   return ref
-//       .read(itemListControllerProvider)
-//       .asData!
-//       .value
-//       .firstWhere((item) => item.id == id);
-// });
-
 final currentItem = Provider<Item?>(
   (ref) => null,
 );
@@ -27,6 +15,7 @@ class ItemList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final AsyncValue<List<Item>> itemList =
         ref.watch(itemListControllerProvider);
+    final filteredItemList = ref.watch(filteredItemListProvider);
 
     return itemList.when(
         data: (List<Item> items) {
@@ -40,9 +29,9 @@ class ItemList extends ConsumerWidget {
           }
 
           return ListView.builder(
-            itemCount: items.length,
+            itemCount: filteredItemList.length,
             itemBuilder: (BuildContext context, int index) {
-              final item = items[index];
+              final item = filteredItemList[index];
 
               return ProviderScope(
                   overrides: [currentItem.overrideWithValue(item)],

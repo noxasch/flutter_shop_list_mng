@@ -4,6 +4,27 @@ import 'package:marcusng_todo_app/models/item.dart';
 import 'package:marcusng_todo_app/repositories/custom_exception.dart';
 import 'package:marcusng_todo_app/repositories/item_repository/item_repository.dart';
 
+enum ItemListFilter { all, obtained }
+
+final itemListFilterProvider =
+    StateProvider<ItemListFilter>((ref) => ItemListFilter.all);
+
+final filteredItemListProvider = Provider<List<Item>>((ref) {
+  final currentFilter = ref.watch(itemListFilterProvider);
+  final itemList = ref.watch(itemListControllerProvider);
+
+  return itemList.maybeWhen(
+      data: (items) {
+        switch (currentFilter) {
+          case ItemListFilter.obtained:
+            return items.where((item) => item.obtained).toList();
+          default:
+            return items;
+        }
+      },
+      orElse: () => []);
+});
+
 // to show the error in snackbar instead of full screen error message
 final itemListExceptionProvider = StateProvider<CustomException?>((_) => null);
 
