@@ -52,10 +52,34 @@ class ItemListController extends StateNotifier<AsyncValue<List<Item>>> {
     }
   }
 
+  Future<void> updateItem({required Item updatedItem}) async {
+    try {
+      await _read(itemRepositoryProvider)
+          .updateItem(userId: _userId!, item: updatedItem);
+
+      state.whenData((items) {
+        final index = items.indexWhere((item) => item.id == updatedItem.id);
+        items[index] = updatedItem;
+        state = AsyncValue.data(items);
+
+        // state = AsyncValue.data([
+        //    for (final item in items)
+        //       if (item.id == updatedItem.id) updatedItem else item
+        // ]);
+      });
+    } on CustomException catch (error) {
+      _read(itemListExceptionProvider.state).state = error;
+    }
+  }
+
   Future<void> deleteItem({required String itemId}) async {
     try {
       await _read(itemRepositoryProvider)
           .deleteItem(userId: _userId!, itemId: itemId);
+      state.whenData((items) {
+        state =
+            AsyncValue.data(items..removeWhere((item) => item.id == itemId));
+      });
     } on CustomException catch (error) {
       _read(itemListExceptionProvider.state).state = error;
     }
