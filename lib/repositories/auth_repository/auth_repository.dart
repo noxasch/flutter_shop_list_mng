@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '/../repositories/firebase_providers.dart';
 import './auth_exception.dart';
 import './base_auth_repository.dart';
-import '/../repositories/firebase_providers.dart';
 
 
 final authRepositoryProvider =
