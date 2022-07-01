@@ -4,7 +4,7 @@ import 'package:marcusng_todo_app/repositories/custom_exception.dart';
 import 'package:marcusng_todo_app/widgets/item_list_error.dart';
 import 'package:marcusng_todo_app/widgets/item_tile.dart';
 
-final currentItem = Provider<Item?>(
+final currentItem = Provider.autoDispose<Item?>(
   (ref) => null,
 );
 
